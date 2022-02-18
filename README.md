@@ -1,7 +1,10 @@
 # React Payment Inputs
 
-> A React Hook & Container to help with payment card input fields.
+## Fork Reason
 
+Project forked to export Utils methods, with proporse to use the validators in yup.
+
+> A React Hook & Container to help with payment card input fields.
 
 <p align="center"><img src="./assets/react-payment-inputs.png" width="500px" style="margin-bottom: 1rem; margin-top: 1rem;"></img></p>
 
@@ -159,13 +162,7 @@ import { PaymentInputsWrapper, usePaymentInputs } from 'react-payment-inputs';
 import images from 'react-payment-inputs/images';
 
 export default function PaymentInputs() {
-  const {
-    wrapperProps,
-    getCardImageProps,
-    getCardNumberProps,
-    getExpiryDateProps,
-    getCVCProps
-  } = usePaymentInputs();
+  const { wrapperProps, getCardImageProps, getCardNumberProps, getExpiryDateProps, getCVCProps } = usePaymentInputs();
 
   return (
     <PaymentInputsWrapper {...wrapperProps}>
@@ -189,9 +186,10 @@ export default function PaymentInputs() {
 
 ### options
 
-> `Object({ cardNumberValidator, cvcValidator, errorMessages, expiryValidator, onBlur, onChange, onError, onTouch  })`
+> `Object({ cardNumberValidator, cvcValidator, errorMessages, expiryValidator, onBlur, onChange, onError, onTouch })`
 
 #### options.cardNumberValidator
+
 > `function({cardNumber, cardType, errorMessages})`
 
 Set custom card number validator function
@@ -214,10 +212,10 @@ export default function MyComponent() {
 ```
 
 #### options.cvcValidator
+
 > `function({cvc, cardType, errorMessages})`
 
 Set custom cvc validator function
-
 
 #### options.errorMessages
 
@@ -248,10 +246,10 @@ export default function MyComponent() {
 ```
 
 #### options.expiryDateValidator
+
 > `function({expiryDate, errorMessages})`
 
 Set custom expiry date validator function
-
 
 #### options.onBlur
 
@@ -350,7 +348,7 @@ You can also supply [custom card images](#custom-card-images) using the `images`
 ```jsx
 import images from 'react-payment-inputs/images';
 
-<svg {...getCardImageProps({ images })} />
+<svg {...getCardImageProps({ images })} />;
 ```
 
 #### meta.cardType
@@ -364,7 +362,7 @@ Returns information about the current card type, including: name, lengths and fo
 ```jsx
 const { meta } = usePaymentInputs();
 
-<span>Current card: {meta.cardType.displayName}</span>
+<span>Current card: {meta.cardType.displayName}</span>;
 ```
 
 #### meta.error
@@ -508,12 +506,7 @@ import { usePaymentInputs } from 'react-payment-inputs';
 import images from 'react-payment-inputs/images';
 
 export default function PaymentInputs() {
-  const {
-    meta,
-    getCardNumberProps,
-    getExpiryDateProps,
-    getCVCProps
-  } = usePaymentInputs();
+  const { meta, getCardNumberProps, getExpiryDateProps, getCVCProps } = usePaymentInputs();
   const { erroredInputs, touchedInputs } = meta;
 
   return (
@@ -562,12 +555,7 @@ import { usePaymentInputs } from 'react-payment-inputs';
 import images from 'react-payment-inputs/images';
 
 export default function PaymentInputs() {
-  const {
-    meta,
-    getCardNumberProps,
-    getExpiryDateProps,
-    getCVCProps
-  } = usePaymentInputs();
+  const { meta, getCardNumberProps, getExpiryDateProps, getCVCProps } = usePaymentInputs();
   const { erroredInputs, touchedInputs } = meta;
 
   return (
@@ -586,19 +574,12 @@ export default function PaymentInputs() {
         </Form.Group>
         <Form.Group as={Col} style={{ maxWidth: '10rem' }}>
           <Form.Label>Expiry date</Form.Label>
-          <Form.Control
-            {...getExpiryDateProps()}
-            isInvalid={touchedInputs.expiryDate && erroredInputs.expiryDate}
-          />
+          <Form.Control {...getExpiryDateProps()} isInvalid={touchedInputs.expiryDate && erroredInputs.expiryDate} />
           <Form.Control.Feedback type="invalid">{erroredInputs.expiryDate}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} style={{ maxWidth: '7rem' }}>
           <Form.Label>CVC</Form.Label>
-          <Form.Control
-            {...getCVCProps()}
-            isInvalid={touchedInputs.cvc && erroredInputs.cvc}
-            placeholder="123"
-          />
+          <Form.Control {...getCVCProps()} isInvalid={touchedInputs.cvc && erroredInputs.cvc} placeholder="123" />
           <Form.Control.Feedback type="invalid">{erroredInputs.cvc}</Form.Control.Feedback>
         </Form.Group>
       </Form.Row>
@@ -624,7 +605,7 @@ function PaymentForm() {
     getCardNumberProps,
     getExpiryDateProps,
     getCVCProps,
-    wrapperProps
+    wrapperProps,
   } = usePaymentInputs();
 
   return (
@@ -632,7 +613,7 @@ function PaymentForm() {
       initialValues={{
         cardNumber: '',
         expiryDate: '',
-        cvc: ''
+        cvc: '',
       }}
       onSubmit={data => console.log(data)}
       validate={() => {
@@ -655,14 +636,10 @@ function PaymentForm() {
             <PaymentInputsWrapper {...wrapperProps}>
               <svg {...getCardImageProps({ images })} />
               <Field name="cardNumber">
-                {({ field }) => (
-                  <input {...getCardNumberProps({ onBlur: field.onBlur, onChange: field.onChange })} />
-                )}
+                {({ field }) => <input {...getCardNumberProps({ onBlur: field.onBlur, onChange: field.onChange })} />}
               </Field>
               <Field name="expiryDate">
-                {({ field }) => (
-                  <input {...getExpiryDateProps({ onBlur: field.onBlur, onChange: field.onChange })} />
-                )}
+                {({ field }) => <input {...getExpiryDateProps({ onBlur: field.onBlur, onChange: field.onChange })} />}
               </Field>
               <Field name="cvc">
                 {({ field }) => <input {...getCVCProps({ onBlur: field.onBlur, onChange: field.onChange })} />}
@@ -694,7 +671,7 @@ function PaymentForm() {
     getCardNumberProps,
     getExpiryDateProps,
     getCVCProps,
-    wrapperProps
+    wrapperProps,
   } = usePaymentInputs();
 
   return (
@@ -720,14 +697,10 @@ function PaymentForm() {
             <PaymentInputsWrapper {...wrapperProps}>
               <svg {...getCardImageProps({ images })} />
               <Field name="cardNumber">
-                {({ input }) => (
-                  <input {...getCardNumberProps({ onBlur: input.onBlur, onChange: input.onChange })} />
-                )}
+                {({ input }) => <input {...getCardNumberProps({ onBlur: input.onBlur, onChange: input.onChange })} />}
               </Field>
               <Field name="expiryDate">
-                {({ input }) => (
-                  <input {...getExpiryDateProps({ onBlur: input.onBlur, onChange: input.onChange })} />
-                )}
+                {({ input }) => <input {...getExpiryDateProps({ onBlur: input.onBlur, onChange: input.onChange })} />}
               </Field>
               <Field name="cvc">
                 {({ input }) => <input {...getCVCProps({ onBlur: input.onBlur, onChange: input.onChange })} />}
@@ -755,12 +728,7 @@ import { css } from 'styled-components';
 import { usePaymentInputs, PaymentInputsWrapper } from 'react-payment-inputs';
 
 function PaymentForm() {
-  const {
-    getCardNumberProps,
-    getExpiryDateProps,
-    getCVCProps,
-    wrapperProps
-  } = usePaymentInputs();
+  const { getCardNumberProps, getExpiryDateProps, getCVCProps, wrapperProps } = usePaymentInputs();
 
   return (
     <PaymentInputsWrapper
@@ -769,7 +737,7 @@ function PaymentForm() {
         fieldWrapper: {
           base: css`
             margin-bottom: 1rem;
-          `
+          `,
         },
         inputWrapper: {
           base: css`
@@ -783,7 +751,7 @@ function PaymentForm() {
             box-shadow: unset;
             outline: 2px solid blue;
             outline-offset: 2px;
-          `
+          `,
         },
         input: {
           base: css`
@@ -800,13 +768,13 @@ function PaymentForm() {
           `,
           cvc: css`
             width: 5rem;
-          `
+          `,
         },
         errorText: {
           base: css`
             color: maroon;
-          `
-        }
+          `,
+        },
       }}
     >
       <input {...getCardNumberProps()} />
@@ -838,17 +806,11 @@ const images = {
         fill="#ff5f00"
       />
     </g>
-  )
-}
+  ),
+};
 
 function PaymentForm() {
-  const {
-    getCardNumberProps,
-    getExpiryDateProps,
-    getCVCProps,
-    getCardImageProps,
-    wrapperProps
-  } = usePaymentInputs();
+  const { getCardNumberProps, getExpiryDateProps, getCVCProps, getCardImageProps, wrapperProps } = usePaymentInputs();
 
   return (
     <PaymentInputsWrapper {...wrapperProps}>
